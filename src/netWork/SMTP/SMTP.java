@@ -38,8 +38,8 @@ public class SMTP {
 
     public String header() {
         String date = "DATE: " + new Date() + "\r\n";
-        String to = "TO: " + this.userMail.userEmail + "\r\n";
-        String from = "FROM: " + this.userMail.TO;
+        String to = "TO: " + this.userMail.TO + "\r\n";
+        String from = "FROM: " + this.userMail.userEmail;
         return date + to + from;
     }
 

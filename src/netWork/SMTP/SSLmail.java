@@ -134,6 +134,8 @@ public class SSLmail {
         System.out.println("data 명령을 전송합니다");
         System.out.println(this.protocol.data());
         pw.println(this.protocol.data());
+        System.out.println(br.readLine());
+
         String line;
         while ((line = br.readLine()) != null) {
             if (line.isEmpty()) break;
@@ -172,6 +174,16 @@ public class SSLmail {
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
 
+        pw.println(this.protocol.sendProtocol());
+        String line;
+        while ((line = br.readLine()) != null) {
+            if (line.isEmpty()) break;
+//            System.out.println(line);
+            if (!br.ready()) break;
+            if (!line.startsWith("354")) {
+                throw new Exception("data 명령전송 실패");
+            }
+        }
 
 //        connectionOK(br);
 //        heloServer(br, pw);
@@ -179,35 +191,36 @@ public class SSLmail {
 //        fromAndRcptTo(br, pw);
 //        send(br, pw);
 
-        try {
-            connectionOK(br);
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        try {
-            heloServer(br, pw);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }try{
-            authLogin(br, pw);
-        }catch (Exception e){            e.printStackTrace();
-        }
-        try {
-            fromAndRcptTo(br, pw);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        try {
-            send(br, pw);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            connectionOK(br);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//        try {
+//            heloServer(br, pw);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }try{
+//            authLogin(br, pw);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        try {
+//            fromAndRcptTo(br, pw);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//        try {
+//            send(br, pw);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         System.out.println("==========================");
             System.out.println("메일이 전송되었습니다.");
