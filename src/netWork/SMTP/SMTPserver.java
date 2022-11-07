@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class SMTPserver extends Thread {
     private static int port = 25;
-    private static ArrayList<Socket> clients = new ArrayList<Socket>(10);
+    //    private static ArrayList<Socket> clients = new ArrayList<Socket>(10);
     private Socket sock;
 
     public SMTPserver(Socket sock) {
@@ -34,6 +34,7 @@ public class SMTPserver extends Thread {
             String content = "";
             String auth = null;
             String line;
+            System.out.println("=======클라이언트에서 받은 내용=======");
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
                 if (line.startsWith("EHLO") || line.startsWith("HELO")) {
@@ -63,24 +64,24 @@ public class SMTPserver extends Thread {
                     break;
                 } else if (line.startsWith("DATE")) {
 
-                }else if (line.startsWith("TO")) {
+                } else if (line.startsWith("TO")) {
 
-                }else if (line.startsWith("FROM")) {
+                } else if (line.startsWith("FROM")) {
 
                 } else {
-                    content = content+ line;
+                    content = content + line;
 //                    System.out.println(content);
 
                 }
-                if(SMTPserver.equals("smtp.gmail.com")){
+                if (SMTPserver.equals("smtp.gmail.com")) {
                     int golbangIdx = userEmail.indexOf("@");
                     ID = userEmail.substring(0, golbangIdx);
-                } else if (SMTPserver.equals("smtp.naver.com")){
+                } else if (SMTPserver.equals("smtp.naver.com")) {
                     ID = userEmail;
                 }
-
-
             }
+            System.out.println("======================");
+
             UserMail userMail = new UserMail(SMTPserver, ID, "", TO, subject, content, auth);
 //                userMail.setAuth(auth);
 //

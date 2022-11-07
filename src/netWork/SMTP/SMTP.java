@@ -18,10 +18,10 @@ public class SMTP {
     }
 
     public String mailFrom() {
-        if(this.userMail.SMTPserver.equals("smtp.naver.com")){
+        if (this.userMail.SMTPserver.equals("smtp.naver.com")) {
             return "MAIL FROM: " + "<" + this.userMail.ID + ">";
 
-        }else if(this.userMail.SMTPserver.equals("smtp.gmail.com")){
+        } else if (this.userMail.SMTPserver.equals("smtp.gmail.com")) {
             return "MAIL FROM: " + "<" + this.userMail.userEmail + ">";
 
         }
@@ -48,7 +48,7 @@ public class SMTP {
     }
 
     public String messege() {
-        return this.userMail.content + "\r\n" + ".";
+        return this.userMail.content;
     }
 
     public String quit() {
@@ -64,6 +64,7 @@ public class SMTP {
                 + header() + "\r\n"
                 + sbject() + "\r\n"
                 + messege() + "\r\n"
+                + "." + "\r\n"
                 + quit();
 
         return allProtocol;
