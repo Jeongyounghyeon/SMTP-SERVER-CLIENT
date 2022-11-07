@@ -38,6 +38,22 @@ public class UserMail {
         }
 
     }
+
+    public UserMail(String SMTPserver, String ID, String TO, String subject, String content) {
+        this.SMTPserver = SMTPserver;
+        if (SMTPserver.equals("smtp.naver.com")) {
+            this.userEmail = ID + "@naver.com";
+        } else if (SMTPserver.equals("smtp.gmail.com")) {
+            this.userEmail = ID + "@gmail.com";
+        } else {
+            this.userEmail = null;
+        }
+        this.ID = ID;
+        this.TO = TO;
+        this.subject = subject;
+        this.content = content;
+
+    }
     public UserMail(String SMTPserver, String ID, String PW, String TO, String subject, String content,String auth) {
         this.SMTPserver = SMTPserver;
         if (SMTPserver.equals("smtp.naver.com")) {
@@ -67,9 +83,8 @@ public class UserMail {
         return new String(authBytes);
     }
 
-    public void setAuth(String auth) {
-
-        this.auth = auth;
+    public void setAuth(String auth){
+        this.auth= auth;
     }
 
 }

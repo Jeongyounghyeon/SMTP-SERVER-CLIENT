@@ -17,9 +17,14 @@ public class ServerHandler extends Thread {
             String line;
             while ((line = datain.readLine()) != null) {
                 System.out.println(line);
+                socket.close();
             }
         } catch (Exception e) {
-
+            try {
+                socket.close();
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
         }
 
 

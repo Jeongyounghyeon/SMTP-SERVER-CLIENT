@@ -1,23 +1,22 @@
 package netWork.SMTP;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
-
 public class MailClient {
 
     public static void main(String[] args) throws Exception {
-        Socket socket = new Socket("127.0.0.1", 25);
-
-        BufferedReader datain = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        DataOutputStream dataout = new DataOutputStream(socket.getOutputStream());
-//        ServerHandler serverHandler = new ServerHan®dler(socket);
-//        serverHandler.start();
 //
+        try {
+            while (true) {
+            Socket socket = new Socket("127.0.0.1", 25);
 
-
-        while (true) {
+            ServerHandler serverHandler = new ServerHandler(socket);
+            serverHandler.start();
+            DataOutputStream dataout = new DataOutputStream(socket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+
+
             System.out.println("MAIL SERVICE");
             System.out.println("MAIL SERVICE를 골라주세요");
             System.out.println("1. gmail 2. naver (숫자를 입력해주세요)\r\nSMTP 설정을 해주셔야 이용가능합니다.");
@@ -34,7 +33,6 @@ public class MailClient {
             }
 
             String user = in.readLine();
-            System.out.println(user);
 
             System.out.println("비밀번호를 입력해주세요.");
             String password = in.readLine();
@@ -56,12 +54,30 @@ public class MailClient {
 
             String protocol = smtp.sendProtocol();
 
-            System.out.println(protocol);
-            dataout.writeBytes(protocol);
+//            System.out.println(protocol);
+            dataout.write(protocol.getBytes("UTF-8"));
+
+                try {
+                    System.out.println("Press any key to continue...");
+                    in.read();
+                    for(int i=0;i<80;i++){
+                        System.out.println("\n");
+                    }
+
+                } catch (Exception err) {
+                    err.printStackTrace();
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("Error : 서버상태를 확인해주세요.");
+//            e.printStackTrace();
+//
         }
 
 
     }
-
 
 }

@@ -62,7 +62,7 @@ public class SMTP {
                 + rcptTO() + "\r\n"
                 + data() + "\r\n"
                 + header() + "\r\n"
-                + sbject() + "\r\n"
+                + sbject() + "\r\n"+ "\r\n"
                 + messege() + "\r\n"
                 + "." + "\r\n"
                 + quit();
