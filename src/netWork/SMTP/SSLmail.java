@@ -45,7 +45,6 @@ public class SSLmail {
 
         System.out.println(smtpServer + " SMTP 서버에 연결되었습니다");
 
-
         return socket;
     }
 
@@ -81,7 +80,6 @@ public class SSLmail {
         System.out.println("*************** AUTH LOGIN ***************");
 
         System.out.println("AUTH login 명령을 전송합니다");
-
 
         pw.println(this.protocol.authLogin());
         while ((line = br.readLine()) != null) {
@@ -181,26 +179,30 @@ public class SSLmail {
 
 
         System.out.println("------------- 전송 ------------");
-        // 리팩토링 필요.
-        boolean connection = connectionOK(br);
-        if (connection) {
-            boolean heloServer = heloServer(br, pw);
-            if (heloServer) {
-                boolean login = authLogin(br, pw);
-                if (login) {
-                    boolean fromandRcpt = fromAndRcptTo(br, pw);
-                    if (fromandRcpt) {
-                        boolean dataSend = dataSend(br, pw);
-                        if (dataSend) {
-                            sendMessege(br, pw);
-                        }
-                    }
-                }
-            }
-        }
+        connectionOK(br);
+        heloServer(br, pw);
+        authLogin(br, pw);
+        fromAndRcptTo(br, pw);
+        dataSend(br, pw);
+        sendMessege(br, pw);
+//        boolean connection = connectionOK(br);
+//        if (connection) {
+//            boolean heloServer = heloServer(br, pw);
+//            if (heloServer) {
+//                boolean login = authLogin(br, pw);
+//                if (login) {
+//                    boolean fromandRcpt = fromAndRcptTo(br, pw);
+//                    if (fromandRcpt) {
+//                        boolean dataSend = dataSend(br, pw);
+//                        if (dataSend) {
+//                            sendMessege(br, pw);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         System.out.println("--------------------------------------");
-
 
         while ((line = br.readLine()) != null) {
             System.out.println(line);
